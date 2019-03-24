@@ -15,4 +15,8 @@ public interface QuestionService {
 	public int addQuestion();
 	
 	public List<Question> getAll();
+	
+	List<Question> getByLevel(int level);
+	
+	List<Question> getRandomQuestion();
 }
