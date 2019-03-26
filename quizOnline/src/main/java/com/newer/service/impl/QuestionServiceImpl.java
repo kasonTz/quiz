@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.newer.dao.QuestionRepository;
 import com.newer.entity.Question;
 import com.newer.service.QuestionService;
+import com.newer.utils.RandomUtil;
 
 @Service
 public class QuestionServiceImpl implements QuestionService{
@@ -47,6 +48,18 @@ public class QuestionServiceImpl implements QuestionService{
 		
 		String[] answers7 = {"填空题2"};
 		Question q7 = new Question("我是一道填空题2", null, answers7, "我是这道题的解析。。。。测试7", 3);
+		
+		String[] items8 = {"可口可乐","Google","Apple","中石油"};
+		String[] answers8 = {"A"};
+		Question q8 = new Question("单选题，随便选", items8, answers8, "我是这道题的解析。。。。测试8", 1);
+		
+		String[] items9 = {"可口可乐","Google","Apple","中石油"};
+		String[] answers9 = {"D"};
+		Question q9 = new Question("是单选吗", items9, answers9, "我是这道题的解析。。。。测试9", 1);
+		
+		String[] items10 = {"刘阳","刘阳河","浏阳","浏阳河"};
+		String[] answers10 = {"A","B"};
+		Question q10 = new Question("这是一道多选题3", items10, answers10, "我是这道题的解析。。。。测试5", 2);
 //		List<Question> list = new ArrayList<>();
 //		List<Question> insert = questionRepository.insert(list);
 //		questionRepository.insert(q1);
@@ -54,8 +67,11 @@ public class QuestionServiceImpl implements QuestionService{
 //		questionRepository.insert(q3);
 //		questionRepository.insert(q4);
 //		questionRepository.insert(q5);
-		questionRepository.insert(q6);
-		questionRepository.insert(q7);
+//		questionRepository.insert(q6);
+//		questionRepository.insert(q7);
+		questionRepository.insert(q8);
+		questionRepository.insert(q9);
+		questionRepository.insert(q10);
 		return 1;
 	}
 
@@ -72,10 +88,43 @@ public class QuestionServiceImpl implements QuestionService{
 		return questionRepository.findByLevel(level);
 	}
 
+	/**
+	 * 	根据level查询题目数量
+	 */
 	@Override
-	public List<Question> getRandomQuestion() {
-		mongoTemplate.save(new Question());
-		return null;
+	public int getCountByLevel(int level) {
+		int i = questionRepository.countByLevel(level);
+		return i;
+	}
+	
+	public void test(int c1, int c2, int c3) {
+
+		System.out.println(c1);
+		System.out.println(c2);
+		System.out.println(c3);
+//		List<Question> listLevelOne = questionService.getByLevel(1);
+//		List<Question> listLevelTwo = questionService.getByLevel(2);
+//		List<Question> listLevelThree = questionService.getByLevel(3);
+		// 总题目数
+		int total = 10;
+		// 各个级别所占题目数量
+		int t1 = (total * 5/10);
+		int t2 = (total * 3/10);
+		int t3 = (total * 2/10);
+		
+		System.out.println("------------------");
+		System.out.println(t1);
+		System.out.println(t2);
+		System.out.println(t3);
+		
+		List<Integer> list1 = RandomUtil.randomForLevel(c1, t1); //3 5
+		List<Integer> list2 = RandomUtil.randomForLevel(c2, t2); //2 3
+		List<Integer> list3 = RandomUtil.randomForLevel(c3, t3);
+		
+		System.out.println("--------qq---------");
+		System.out.println(list1.toString());
+		System.out.println(list2.toString());
+		System.out.println(list3.toString());
 	}
 
 }

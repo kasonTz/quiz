@@ -18,5 +18,7 @@ public interface QuestionService {
 	
 	List<Question> getByLevel(int level);
 	
-	List<Question> getRandomQuestion();
+	int getCountByLevel(int level);
+	
+	void test(int c1, int c2, int c3);
 }
